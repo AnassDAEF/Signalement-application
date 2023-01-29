@@ -13,7 +13,7 @@
                 <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
             </mat-form-field>
             <div class="mat-elevation-z8">
-                <table mat-table color="primary" [dataSource]="dataSource" matSort matSortActive="posteddate"
+                <table mat-table id="signalementTable" color="primary" [dataSource]="dataSource" matSort matSortActive="posteddate"
                     matSortDirection="asc">
                     <ng-container matColumnDef="first_name">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> First name </th>

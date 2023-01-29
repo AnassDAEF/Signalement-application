@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { identifierName } from '@angular/compiler';
 
 describe('AddSignalementComponent', () => {
   let component: AddSignalementComponent;
@@ -93,7 +94,7 @@ describe('AddSignalementComponent', () => {
     expect(signalementForm.value).toEqual(signalementFormValues);
     });
 
-    it('Checking signalement form is valid', ()=>{
+    it('Checking signalementObject created', ()=>{
       fixture.detectChanges();
       fixture.whenStable().then(() =>{
       const signalementForm = component.signalementFormGroup;
@@ -105,16 +106,19 @@ describe('AddSignalementComponent', () => {
       signalementForm.controls['description'].setValue("this is my description");
       component.selectedObservation = [{id: 1, name:"Observation 1"}];
       component.createSignalemntToSend();
-
         fixture.whenStable().then(() => {
-        expect(component.signalementFormGroup.controls['first_name']?.value).toEqual('Joe');
-        expect(component.signalementFormGroup.controls['last_name']?.value).toEqual('Jordan');
-        expect(component.signalementFormGroup.controls['email']?.value).toEqual('jordanj@gmail.com');
-        expect(component.signalementFormGroup.controls['sex']?.value).toEqual('Homme');
-        expect(component.signalementFormGroup.controls['birth_date']?.value).toEqual('10/10/1990');
-        expect(component.signalementFormGroup.controls['description']?.value).toEqual('this is my description');
+        expect(component.createSignalemntToSend()).toEqual(<Signalement>{
+          author:{
+            first_name:"Joe",
+            last_name:"Jordan",
+            email:"jordanj@gmail.com",
+            sex: "Homme",
+            birth_date:"10/10/1990"
+          },
+          description: "this is my description",
+          observation:[{id: 1, name:"Observation 1"}]
+        });
         expect(component.signalementFormGroup.valid).toBeTruthy();
-        expect(component.signalementFormGroup.value).toEqual
         expect(component.checkFormValidity()).toBeTruthy();
       })
       })
