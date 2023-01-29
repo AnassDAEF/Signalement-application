@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "signalement-application": {
+      "hosting": {
+        "signalement-application": [
+          "signalement-application"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "signalement-application"
+  }
+}
