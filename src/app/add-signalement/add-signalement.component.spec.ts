@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { identifierName } from '@angular/compiler';
+import { compilePipeFromMetadata, identifierName } from '@angular/compiler';
 
 describe('AddSignalementComponent', () => {
   let component: AddSignalementComponent;
@@ -79,7 +79,7 @@ describe('AddSignalementComponent', () => {
     expect(fixture.debugElement.query(By.all())).toBeTruthy();
   }));
 
-  it('Check initial form values for add', ()=>{
+  it('Check initial form values', ()=>{
     const signalementForm = component.signalementFormGroup;
     const signalementFormValues = {
         first_name: "",
@@ -90,38 +90,31 @@ describe('AddSignalementComponent', () => {
         description: "",
       
     }
-    console.log(signalementForm.value);
     expect(signalementForm.value).toEqual(signalementFormValues);
     });
 
-    it('Checking signalementObject created', ()=>{
-      fixture.detectChanges();
-      fixture.whenStable().then(() =>{
-      const signalementForm = component.signalementFormGroup;
-      signalementForm.controls['first_name'].setValue("Joe");
-      signalementForm.controls['last_name'].setValue("Jordan");
-      signalementForm.controls['email'].setValue("jordanj@gmail.com");
-      signalementForm.controls['sex'].setValue("Homme");
-      signalementForm.controls['birth_date'].setValue("10/10/1990");
-      signalementForm.controls['description'].setValue("this is my description");
-      component.selectedObservation = [{id: 1, name:"Observation 1"}];
-      component.createSignalemntToSend();
-        fixture.whenStable().then(() => {
-        expect(component.createSignalemntToSend()).toEqual(<Signalement>{
-          author:{
-            first_name:"Joe",
-            last_name:"Jordan",
-            email:"jordanj@gmail.com",
-            sex: "Homme",
-            birth_date:"10/10/1990"
-          },
-          description: "this is my description",
-          observation:[{id: 1, name:"Observation 1"}]
-        });
-        expect(component.signalementFormGroup.valid).toBeTruthy();
-        expect(component.checkFormValidity()).toBeTruthy();
-      })
-      })
+    it('form invalid when empty', () => {
+      expect(component.signalementFormGroup.valid).toBeFalsy();
+    });
+
+    it('Should validate form with data', ()=>{
+      component.signalementFormGroup.controls['first_name'].setValue("Joe");
+      component.signalementFormGroup.controls['last_name'].setValue("Jordan");
+      component.signalementFormGroup.controls['email'].setValue("jordanj@gmail.com");
+      component.signalementFormGroup.controls['sex'].setValue("Homme");
+      component.signalementFormGroup.controls['birth_date'].setValue(new Date("10/10/1990"));
+      component.signalementFormGroup.controls['description'].setValue("this is my description");
+      component.selectedObservation= [{id: 1, name: 'Observation 1'}]
+      expect(component.checkFormValidity()).toBeTruthy();
+      });
+
+      it('should invalidate form with empty inputs', () => {
+        component.signalementFormGroup.controls['first_name'].setValue('');
+        component.signalementFormGroup.controls['last_name'].setValue('');
+        component.signalementFormGroup.controls['email'].setValue('');
+        component.signalementFormGroup.controls['sex'].setValue('');
+        component.signalementFormGroup.controls['description'].setValue('');
+        expect(component.signalementFormGroup.valid).toBeFalsy();
       });
 
 });

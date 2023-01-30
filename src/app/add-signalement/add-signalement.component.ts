@@ -59,7 +59,7 @@ export class AddSignalementComponent implements OnInit {
    * @returns boolean
    */
   checkFormValidity(): boolean {
-    return (this.signalementFormGroup.valid) ? true : false;
+    return (this.signalementFormGroup.valid && this.selectedObservation && this.selectedObservation.length > 0) ? true : false;
   }
 
   /**
@@ -202,5 +202,7 @@ export class AddSignalementComponent implements OnInit {
     return object1 && object2 && object1.id === object2.id;
   }
 
+
+ 
 }
 

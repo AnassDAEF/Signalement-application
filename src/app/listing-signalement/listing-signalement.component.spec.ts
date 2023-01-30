@@ -22,7 +22,8 @@ describe('ListingSignalementComponent', () => {
   let component: ListingSignalementComponent;
   let fixture: ComponentFixture<ListingSignalementComponent>;
   let testSignalement: Signalement[] = [
-    {author:{
+    {
+      author:{
      first_name:"Joe",
      last_name:"Jordan",
      email:"jordanj@gmail.com",

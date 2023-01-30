@@ -815,6 +815,40 @@
       ],
       "description": "sqdqdq",
       "id": 41
+    },
+    {
+      "author": {
+        "first_name": "Joeaa",
+        "last_name": "Jordan",
+        "email": "jordanj@gmail.com",
+        "birth_date": "01/04/2023",
+        "sex": "Homme"
+      },
+      "observation": [
+        {
+          "id": 1,
+          "name": "Observation 1"
+        }
+      ],
+      "description": "this is my description",
+      "id": 42
+    },
+    {
+      "author": {
+        "first_name": "Joe",
+        "last_name": "Jordan",
+        "email": "jordanjaa@gmail.com",
+        "birth_date": "Invalid date",
+        "sex": "Homme"
+      },
+      "observation": [
+        {
+          "id": 1,
+          "name": "Observation 1"
+        }
+      ],
+      "description": "this is my description",
+      "id": 43
     }
   ],
   "observations": [
